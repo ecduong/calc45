@@ -17,7 +17,7 @@ export default class CalculatorMain extends Component {
     firstIvValue: 0,
     secondIvValue: 0,
     thirdIvValue: 0,
-    calculatedValue: null
+    showCalculated: false
   }
 
   render() {
@@ -36,6 +36,8 @@ export default class CalculatorMain extends Component {
             thumbTintColor={this.state.firstIvValue === 15 ? "#FF7E7E" : "#FFB923"}
             minimumTrackTintColor={this.state.firstIvValue === 15 ? "#FF7E7E" : "#FFB923"}
             maximumTrackTintColor="#000000"
+            onSlidingStart={() => this.setState({showCalculated: false})}
+            onSlidingComplete={() => this.setState({showCalculated: true})}
             onValueChange={(value) => this.setState({firstIvValue: value})}
           />
           <Text style={styles.sliderValueText}>{this.state.firstIvValue}</Text>
@@ -50,6 +52,8 @@ export default class CalculatorMain extends Component {
             thumbTintColor={this.state.secondIvValue === 15 ? "#FF7E7E" : "#FFB923"}
             minimumTrackTintColor={this.state.secondIvValue === 15 ? "#FF7E7E" : "#FFB923"}
             maximumTrackTintColor="#000000"
+            onSlidingStart={() => this.setState({showCalculated: false})}
+            onSlidingComplete={() => this.setState({showCalculated: true})}
             onValueChange={(value) => this.setState({secondIvValue: value})}
           />
           <Text style={styles.sliderValueText}>{this.state.secondIvValue}</Text>
@@ -64,12 +68,14 @@ export default class CalculatorMain extends Component {
             thumbTintColor={this.state.thirdIvValue === 15 ? "#FF7E7E" : "#FFB923"}
             minimumTrackTintColor={this.state.thirdIvValue === 15 ? "#FF7E7E" : "#FFB923"}
             maximumTrackTintColor="#000000"
+            onSlidingStart={() => this.setState({showCalculated: false})}
+            onSlidingComplete={() => this.setState({showCalculated: true})}
             onValueChange={(value) => this.setState({thirdIvValue: value})}
           />
           <Text style={styles.sliderValueText}>{this.state.thirdIvValue}</Text>
         </View>
 
-        <Text style={styles.calculatedResultText}>{this.calculateIV() + "%"}</Text>
+        <Text style={styles.calculatedResultText}>{this.state.showCalculated && this.calculateIV() + "%"}</Text>
       </View>
     );
   }
@@ -95,7 +101,7 @@ const styles = StyleSheet.create({
   },
   slider: {
     flex: 0.7,
-    height: 30
+    height: 30,
   },
   sliderText: {
     flex: 0.15,
